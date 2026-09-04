@@ -6,7 +6,7 @@
 //
 // 아이콘처럼 캐시부터 보는 파일을 바꾸면 이 번호를 올려야 한다.
 // 올리지 않으면 이미 설치한 사람은 옛 파일을 계속 쓴다.
-const CACHE = 'safety-plan-v1';
+const CACHE = 'safety-plan-v2';
 
 const ASSETS = [
   './',
