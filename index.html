@@ -16,6 +16,18 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <!-- 검색 결과에 올라가지 않게 한다 -->
 <meta name="robots" content="noindex, nofollow">
+
+<!-- 카톡으로 링크를 보내면 대화창에 미리보기 카드가 뜬다.
+     이걸 정해두지 않으면 카톡이 <title>을 긁어가서 '나를 지키는 안전계획'이
+     대화창에 그대로 보인다. 홈 화면 이름을 '새싹'으로 감춘 뜻이 없어진다.
+     그림도 정해둔다. 안 정하면 카톡이 페이지에서 아무 그림이나 골라 간다.
+     주소가 절대주소인 이유: 카톡 서버가 밖에서 읽어가므로 상대주소는 못 찾는다. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="새싹">
+<meta property="og:title" content="새싹">
+<meta property="og:description" content="내가 미리 적어둔 것을 순서대로 보여줍니다">
+<meta property="og:url" content="https://hjfly1004-cmyk.github.io/safety-plan-app/">
+<meta property="og:image" content="https://hjfly1004-cmyk.github.io/safety-plan-app/icons/icon-512.png">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 
