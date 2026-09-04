@@ -1940,11 +1940,13 @@ function updateInstallBar(){
   if(isStandalone()) return;          // 이미 설치해서 앱으로 열었다
 
   if(inAppBrowser()){
-    // 여기서 채워 넣으면 앱에 안 남는다는 것을 분명히 알린다
+    // 여기서 적은 것이 앱에 안 남는다는 말은 일부러 넣지 않는다.
+    // 겁을 주는 문장이 되고, 밖으로 나가라는 안내만으로 충분하다.
+    // 대신 '나중에'를 눌러도 이 안내는 다음에 또 뜨게 해뒀다(아래 installClose).
     const where = isKakao() ? '카톡' : '앱';
     text.textContent = isAndroid
-      ? '지금은 ' + where + ' 안의 브라우저로 열려 있어요.\n크롬으로 열어야 홈 화면에 둘 수 있어요.\n여기서 적은 것은 남지 않습니다.'
-      : '지금은 ' + where + ' 안의 브라우저로 열려 있어요.\n오른쪽 아래 버튼을 눌러 사파리로 열어주세요.\n여기서 적은 것은 남지 않습니다.';
+      ? '지금은 ' + where + ' 안의 브라우저로 열려 있어요.\n크롬으로 열어야 홈 화면에 둘 수 있어요.'
+      : '지금은 ' + where + ' 안의 브라우저로 열려 있어요.\n오른쪽 아래 버튼을 눌러 사파리로 열어주세요.';
     action.textContent = '크롬으로 열기';
     action.style.display = isAndroid ? '' : 'none';
     bar.classList.add('show');
