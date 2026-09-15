@@ -513,11 +513,11 @@ textarea:focus{ outline:none; border-color:var(--gold); background:#fff; }
       <h3>몸 상태를 바꿔 진정시키기 (TIP)</h3>
       <div class="callout warn">
         <span class="ct">⚠ 시작하기 전에</span>
-        아래 <b>찬물</b>과 <b>격렬한 운동</b>은 저혈압·심장 질환·섭식장애가 있거나 관련 약을 복용 중이면 주의가 필요합니다. 담당 선생님의 안내를 먼저 확인하세요.
+        아래 <b>차가운 자극</b>과 <b>격렬한 운동</b>은 저혈압·심장 질환·섭식장애가 있거나 관련 약을 복용 중이면 주의가 필요합니다. 담당 선생님의 안내를 먼저 확인하세요.
       </div>
       <div class="tip-card">
-        <div class="th"><span class="ico">❄️</span> 찬물</div>
-        <p>찬물에 얼굴을 담그거나 얼음팩을 목·뺨에 대기. 몸이 빠르게 진정 모드로 전환됩니다.</p>
+        <div class="th"><span class="ico">❄️</span> 차가운 자극</div>
+        <p>얼음팩이나 차가운 물주머니를 <b>눈 밑과 뺨</b>에 15~30초 정도 대보세요. 차가운 자극이 몸을 빠르게 진정 모드로 바꿔줍니다.</p>
       </div>
       <div class="tip-card">
         <div class="th"><span class="ico">🌬️</span> 호흡 (날숨 길게)</div>
@@ -966,7 +966,11 @@ function renderChipGroup(g){
   const box = document.getElementById(g.id + 'Chips');
   if(box){
     box.innerHTML = '';
-    g.base.forEach(function(c){
+    // 기본 목록에서 뺀 항목이라도 이미 고른 사람에게는 보여준다.
+    // 안 그러면 편집 화면에서는 사라졌는데 위기 모드에는 계속 나오고,
+    // 본인이 지울 방법이 없어진다. (2026-09-15 '찬물 세수'를 뺄 때 생긴 문제)
+    const shown = g.base.concat(g.chosen.filter(function(c){ return g.base.indexOf(c) < 0; }));
+    shown.forEach(function(c){
       const on = g.chosen.indexOf(c) >= 0;
       const b = document.createElement('button');
       b.type = 'button';
@@ -1281,7 +1285,7 @@ let w2SenseGroup = null;
 let w2ActGroup = null;
 
 // 원본에서 그대로 옮김
-const W2_SENSE = ['얼음 쥐기','찬물 세수','레몬·자몽 등 강한 맛',
+const W2_SENSE = ['얼음 쥐기','레몬·자몽 등 강한 맛',
                   '강렬한 음악 듣기','좋아하는 향 맡기','반려동물 쓰다듬기'];
 const W2_ACT = ['샤워하기','산책·걷기','좋아하는 영상 보기',
                 '청소·정리','악기 연주','그림 그리기'];
@@ -1727,7 +1731,7 @@ function crisisSteps(){
       empty:'평소에 1단계를 채워두면 여기에 나만의 신호가 표시됩니다.' },
 
     { count:'2 / 7', title:'혼자서 할 수 있는 것부터',
-      lead:'다음 중 하나를 지금 바로 해보세요. 찬물·격렬한 운동은 몸 상태에 주의하세요.',
+      lead:'다음 중 하나를 지금 바로 해보세요. 차가운 자극·격렬한 운동은 몸 상태에 주의하세요.',
       items: cope.map(function(t){ return { t:t }; }),
       empty:'2단계에서 나만의 대처 전략을 미리 정해두세요.' },
 
@@ -1883,7 +1887,7 @@ function renderCrisis(){
   card.appendChild(title);
   card.appendChild(lead);
 
-  // 2단계에서만. 원본도 TIP(찬물·호흡·운동)을 목록보다 앞에 둔다.
+  // 2단계에서만. 원본도 TIP(차가운 자극·호흡·운동)을 목록보다 앞에 둔다.
   // 적어둔 것이 하나도 없어도 이건 나온다. 지금 당장 할 수 있는 것이라서다.
   if(crisisIdx === 1) card.appendChild(breatheNode());
 
