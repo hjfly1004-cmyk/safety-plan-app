@@ -300,23 +300,23 @@ textarea:focus{ outline:none; border-color:var(--gold); background:#fff; }
 
 /* ── 위기 모드 ────────────────────────────────── */
 /* 전화번호 칸은 어느 단계에 있든 화면 맨 위에 그대로 있다 */
-.crisis-help-big{ background:var(--crisis); color:#fff; border-radius:16px; padding:20px; text-align:center; margin-bottom:14px; }
+.crisis-help-big{ background:var(--crisis); color:#fff; border-radius:16px; padding:20px; text-align:center; margin-bottom:10px; }
 .crisis-help-big .chb-t{ font-size:15px; font-weight:800; margin-bottom:12px; }
 .crisis-help-big .chb-num{ display:flex; gap:10px; }
 .crisis-help-big .chb-num a{ flex:1; background:rgba(255,255,255,.16); border-radius:11px; padding:12px 6px; color:#fff; text-decoration:none; }
 .crisis-help-big .chb-num a b{ display:block; font-size:19px; font-weight:900; }
 .crisis-help-big .chb-num a span{ font-size:10.5px; opacity:.9; }
 
-.crisis-progress{ display:flex; gap:5px; justify-content:center; margin-bottom:18px; }
+.crisis-progress{ display:flex; gap:5px; justify-content:center; margin-bottom:12px; }
 .crisis-progress .cp-dot{ width:9px; height:9px; border-radius:50%; background:var(--line); transition:.2s; }
 .crisis-progress .cp-dot.on{ background:var(--crisis); width:22px; border-radius:5px; }
 .crisis-progress .cp-dot.done{ background:#C3DECC; }
 
 .crisis-flow{ min-height:60vh; }
-.crisis-step{ background:#fff; border:2px solid var(--line); border-radius:18px; padding:26px 20px; box-shadow:0 4px 18px rgba(70,55,42,.08); }
-.crisis-step .cs-count{ font-size:12px; font-weight:800; color:var(--gold); letter-spacing:1px; margin-bottom:12px; text-align:center; }
-.crisis-step .cs-title{ font-size:22px; font-weight:900; text-align:center; line-height:1.35; margin-bottom:8px; }
-.crisis-step .cs-lead{ font-size:14px; color:var(--sub); text-align:center; line-height:1.6; margin-bottom:18px; }
+.crisis-step{ background:#fff; border:2px solid var(--line); border-radius:18px; padding:18px 20px 22px; box-shadow:0 4px 18px rgba(70,55,42,.08); }
+.crisis-step .cs-count{ font-size:12px; font-weight:800; color:var(--gold); letter-spacing:1px; margin-bottom:8px; text-align:center; }
+.crisis-step .cs-title{ font-size:22px; font-weight:900; text-align:center; line-height:1.35; margin-bottom:6px; }
+.crisis-step .cs-lead{ font-size:14px; color:var(--sub); text-align:center; line-height:1.6; margin-bottom:12px; }
 
 /* 7단계 '과거'는 여러 줄로 적을 수 있다. 줄바꿈이 뭉개지면 위기 때 읽기 어려워 그대로 살린다 */
 .crisis-item{ background:var(--greenbg); border:1.6px solid #C3DECC; border-radius:13px; padding:15px 16px; margin-bottom:10px; font-size:16px; font-weight:700; line-height:1.5; color:var(--ink); white-space:pre-wrap; }
@@ -375,15 +375,15 @@ textarea:focus{ outline:none; border-color:var(--gold); background:#fff; }
    글자는 원본 2단계 TIP에 있는 문장을 그대로 옮긴 것이다. */
 .cs-breathe{
   background:var(--greenbg); border:1px solid #D6E7DC; border-radius:14px;
-  padding:16px 14px 14px; margin-bottom:12px; text-align:center;
+  padding:12px 13px 11px; margin-bottom:9px; text-align:center;
 }
-.cs-breathe .csb-t{ font-size:12.5px; font-weight:800; color:#3B8159; margin-bottom:10px; }
-.cs-breathe .bandi{ --bandi-size:78px; --bandi-core:13px; }
-.csb-phase{ position:relative; height:21px; margin-top:9px; }
+.cs-breathe .csb-t{ font-size:12.5px; font-weight:800; color:#3B8159; margin-bottom:6px; }
+.cs-breathe .bandi{ --bandi-size:56px; --bandi-core:11px; }
+.csb-phase{ position:relative; height:19px; margin-top:5px; }
 .csb-phase span{ position:absolute; left:0; right:0; font-size:13.5px; font-weight:800; color:#3B8159; }
 .csb-phase .in { animation:bandiIn  7s linear infinite; }
 .csb-phase .out{ animation:bandiOut 7s linear infinite; }
-.cs-breathe p{ font-size:12.5px; color:var(--sub); margin-top:7px; line-height:1.7; }
+.cs-breathe p{ font-size:12.5px; color:var(--sub); margin-top:5px; line-height:1.55; }
 
 /* 두 글자가 점과 같은 7초를 쓴다. 3초에서 4초로 넘어갈 때만 서로 바뀐다 */
 @keyframes bandiIn { 0%{opacity:1} 41%{opacity:1} 43.5%{opacity:0} 98%{opacity:0} 100%{opacity:1} }
@@ -392,17 +392,17 @@ textarea:focus{ outline:none; border-color:var(--gold); background:#fff; }
 /* 위기 모드 2단계의 나머지 TIP 둘 (차가운 자극 · 격렬한 운동).
    호흡 칸과 달리 따라갈 박자가 없어서 점도 없고 가운데 정렬도 하지 않는다. */
 .cs-tip{ background:#FDFBF7; border:1px solid var(--line); border-radius:14px;
-  padding:13px 14px; margin-bottom:10px; }
-.cs-tip .cst-t{ font-size:12.5px; font-weight:800; color:var(--sub); margin-bottom:5px; }
-.cs-tip p{ font-size:13.5px; color:var(--ink); line-height:1.65; }
+  padding:10px 13px; margin-bottom:8px; }
+.cs-tip .cst-t{ font-size:12.5px; font-weight:800; color:var(--sub); margin-bottom:3px; }
+.cs-tip p{ font-size:13px; color:var(--ink); line-height:1.5; }
 
 /* TIP에는 주의 문구를 반드시 함께 둔다(규칙).
    저혈압·심장 질환·섭식장애가 있는 분께 격렬한 운동을 권하면 안 된다.
    빨강을 쓰지 않는 이유: 위기 화면의 빨강은 "지금 전화 거세요" 하나여야 한다.
    여기서 또 빨간 칸이 나오면 급할 때 전화 칸과 헷갈린다. */
 .cs-warn{ background:var(--goldbg); color:#8A6E32; border:1px solid #E8D5A8;
-  border-radius:12px; padding:11px 13px; margin-bottom:11px;
-  font-size:12px; line-height:1.65; }
+  border-radius:12px; padding:9px 12px; margin-bottom:8px;
+  font-size:11.5px; line-height:1.5; }
 
 @media (prefers-reduced-motion: reduce){
   .bandi{ animation:none; opacity:.9; }
