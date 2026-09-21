@@ -389,6 +389,21 @@ textarea:focus{ outline:none; border-color:var(--gold); background:#fff; }
 @keyframes bandiIn { 0%{opacity:1} 41%{opacity:1} 43.5%{opacity:0} 98%{opacity:0} 100%{opacity:1} }
 @keyframes bandiOut{ 0%{opacity:0} 41%{opacity:0} 43.5%{opacity:1} 98%{opacity:1} 100%{opacity:0} }
 
+/* 위기 모드 2단계의 나머지 TIP 둘 (차가운 자극 · 격렬한 운동).
+   호흡 칸과 달리 따라갈 박자가 없어서 점도 없고 가운데 정렬도 하지 않는다. */
+.cs-tip{ background:#FDFBF7; border:1px solid var(--line); border-radius:14px;
+  padding:13px 14px; margin-bottom:10px; }
+.cs-tip .cst-t{ font-size:12.5px; font-weight:800; color:var(--sub); margin-bottom:5px; }
+.cs-tip p{ font-size:13.5px; color:var(--ink); line-height:1.65; }
+
+/* TIP에는 주의 문구를 반드시 함께 둔다(규칙).
+   저혈압·심장 질환·섭식장애가 있는 분께 격렬한 운동을 권하면 안 된다.
+   빨강을 쓰지 않는 이유: 위기 화면의 빨강은 "지금 전화 거세요" 하나여야 한다.
+   여기서 또 빨간 칸이 나오면 급할 때 전화 칸과 헷갈린다. */
+.cs-warn{ background:var(--goldbg); color:#8A6E32; border:1px solid #E8D5A8;
+  border-radius:12px; padding:11px 13px; margin-bottom:11px;
+  font-size:12px; line-height:1.65; }
+
 @media (prefers-reduced-motion: reduce){
   .bandi{ animation:none; opacity:.9; }
   /* 점이 멈추면 "들이쉬기"와 "내쉬기"가 겹쳐 버린다. 글자는 아래 문장이 대신한다 */
@@ -1820,10 +1835,27 @@ function crisisItemNode(it){
   return el;
 }
 
-// 위기 모드 2단계에만 붙는 호흡 칸.
-// 글자는 원본 2단계 TIP("호흡 (날숨 길게)")에 있는 것을 그대로 옮겼다.
-// 위기 때는 긴 글이 읽히지 않으므로 두 문장 중 실제로 따라 할 문장만 남긴다.
-function breatheNode(){
+// 위기 모드 2단계에 붙는 TIP 셋 (차가운 자극 · 호흡 · 격렬한 운동).
+// 순서와 문구는 원본 2단계 TIP을 그대로 따르되, 위기 때는 긴 글이 읽히지
+// 않으므로 설명 문장은 덜어내고 실제로 따라 할 문장만 남긴다.
+//
+// 처음에는 호흡만 넣었는데, 그러면 화면에 셋 중 하나만 있어서
+// 나머지 둘이 빠진 것처럼 보였다. 셋을 함께 둔다.
+// 반디 점은 호흡에만 붙는다. 나머지 둘은 따라갈 박자가 없다.
+function tipCard(title, body){
+  const box = document.createElement('div');
+  box.className = 'cs-tip';
+  const t = document.createElement('div');
+  t.className = 'cst-t';
+  t.textContent = title;
+  const p = document.createElement('p');
+  p.textContent = body;
+  box.appendChild(t);
+  box.appendChild(p);
+  return box;
+}
+
+function breatheCard(){
   const box = document.createElement('div');
   box.className = 'cs-breathe';
 
@@ -1854,6 +1886,22 @@ function breatheNode(){
   box.appendChild(phase);
   box.appendChild(p);
   return box;
+}
+
+function copingTipsNode(){
+  const wrap = document.createDocumentFragment();
+
+  // 주의 문구는 TIP과 반드시 함께 둔다. 저혈압·심장 질환·섭식장애가 있는
+  // 분께 격렬한 운동을 권하면 안 된다. 위기 때 읽히도록 조건만 남기고 줄였다.
+  const warn = document.createElement('div');
+  warn.className = 'cs-warn';
+  warn.textContent = '⚠ 차가운 자극과 격렬한 운동은 저혈압·심장 질환·섭식장애가 있거나 관련 약을 복용 중이면 주의가 필요합니다.';
+  wrap.appendChild(warn);
+
+  wrap.appendChild(tipCard('❄️ 차가운 자극', '얼음팩이나 차가운 물주머니를 눈 밑과 뺨에 15~30초 정도 대보세요.'));
+  wrap.appendChild(breatheCard());
+  wrap.appendChild(tipCard('🏃 격렬한 운동', '제자리 점핑잭, 빠르게 계단 오르기 등으로 심박수를 잠깐 올렸다 내리기.'));
+  return wrap;
 }
 
 function renderCrisis(){
@@ -1889,7 +1937,7 @@ function renderCrisis(){
 
   // 2단계에서만. 원본도 TIP(차가운 자극·호흡·운동)을 목록보다 앞에 둔다.
   // 적어둔 것이 하나도 없어도 이건 나온다. 지금 당장 할 수 있는 것이라서다.
-  if(crisisIdx === 1) card.appendChild(breatheNode());
+  if(crisisIdx === 1) card.appendChild(copingTipsNode());
 
   if(s.items.length){
     s.items.forEach(function(it){ card.appendChild(crisisItemNode(it)); });
