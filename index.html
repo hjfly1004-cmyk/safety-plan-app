@@ -321,6 +321,10 @@ textarea:focus{ outline:none; border-color:var(--gold); background:#fff; }
 /* 7단계 '과거'는 여러 줄로 적을 수 있다. 줄바꿈이 뭉개지면 위기 때 읽기 어려워 그대로 살린다 */
 .crisis-item{ background:var(--greenbg); border:1.6px solid #C3DECC; border-radius:13px; padding:15px 16px; margin-bottom:10px; font-size:16px; font-weight:700; line-height:1.5; color:var(--ink); white-space:pre-wrap; }
 .crisis-item.plain{ background:#FDFBF7; border-color:var(--line); }
+/* 7단계는 미래·현재·과거가 구분 없이 줄줄이 나와 어디서 갈리는지 보이지 않았다.
+   편집 화면처럼 칸을 나누고 색을 더하면 위기 때 볼 것이 늘어난다. 작은 이름표만 둔다 */
+.crisis-head{ font-size:12.5px; font-weight:800; color:var(--sub); margin:18px 0 8px; padding-left:2px; }
+.cs-lead + .crisis-head{ margin-top:4px; }
 /* 번호 글자만이 아니라 칸 전체가 눌린다. 위기 때 손이 떨려도 빗나가지 않게 */
 .crisis-item.call{ background:var(--crisisbg); border-color:#EBCFC6; display:flex; align-items:center; justify-content:space-between; gap:10px;
   text-decoration:none; color:var(--ink); -webkit-tap-highlight-color:transparent; }
@@ -1720,9 +1724,21 @@ let crisisIdx = 0;
 
 function hopeItems(d){
   const out = [];
-  (d.w7.f||[]).forEach(function(v, i){ if(hasText(v)) out.push({ t: W7_F_LABELS[i] + ': ' + v }); });
-  (d.w7.p||[]).forEach(function(v){ if(hasText(v)) out.push({ t: v }); });
-  if(hasText(d.w7.past)) out.push({ t: d.w7.past, plain:true });
+
+  // 편집 화면(7단계)은 미래·현재·과거 세 칸으로 나뉘어 있는데 위기 모드에서만
+  // 그 구분이 사라져, 10년 뒤 일과 오늘 먹을 케이크가 한 줄로 붙어 나왔다.
+  // 적어둔 것이 있는 축에만 이름표를 세운다. 빈 축은 이름표도 내지 않는다
+  const fut = [];
+  (d.w7.f||[]).forEach(function(v, i){ if(hasText(v)) fut.push({ t: W7_F_LABELS[i] + ': ' + v }); });
+  if(fut.length){ out.push({ head:'🔭 미래' }); out.push.apply(out, fut); }
+
+  const now = (d.w7.p||[]).filter(hasText).map(function(v){ return { t: v }; });
+  if(now.length){ out.push({ head:'☀️ 현재' }); out.push.apply(out, now); }
+
+  if(hasText(d.w7.past)){
+    out.push({ head:'💛 과거' });
+    out.push({ t: d.w7.past, plain:true });
+  }
   // 글 다음에 사진, 그다음에 노래. 눈으로 먼저 닿고 귀로 이어지게 둔다
   (d.w7.photos||[]).forEach(function(p){ if(p && p.data) out.push({ photo:p }); });
   (d.w7.songs||[]).forEach(function(s){ if(s && s.videoId) out.push({ song:s }); });
@@ -1793,6 +1809,13 @@ function crisisSteps(){
 
 // 본인이 적은 글이 그대로 화면에 들어가므로 innerHTML을 쓰지 않고 글자로만 넣는다
 function crisisItemNode(it){
+  if(it.head){
+    const h = document.createElement('div');
+    h.className = 'crisis-head';
+    h.textContent = it.head;
+    return h;
+  }
+
   if(it.photo){
     const box = document.createElement('div');
     box.className = 'crisis-photo';
